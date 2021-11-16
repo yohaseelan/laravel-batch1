@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class StudentController extends Controller
 {
@@ -12,10 +13,15 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
+        $students=Student::all();
+       
+        return view('student.index',compact('students'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +43,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
-        $data=$request->all();
+      //  $data=$request->all();
         $fna=$request->input('fname');
         $lna=$request->input('lname');
 
@@ -60,6 +66,10 @@ class StudentController extends Controller
     public function show($id)
     {
         //
+        $student=Student::find($id);
+    
+      return  view('student.show',compact('student'));
+
     }
 
     /**
@@ -70,7 +80,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student=Student::find($id);
+    
+        return  view('student.edit',compact('student'));
     }
 
     /**
@@ -83,6 +95,19 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
+       // $data=$request->all();
+        $fna=$request->input('fname');
+        $lna=$request->input('lname');
+
+        $student=Student::find($id);
+        //$student=new Student();
+        $student->first_name=$fna;
+        $student->last_name=$lna;
+        $student->save();
+
+
+
+        return $lna." ".$fna;
     }
 
     /**
@@ -94,5 +119,8 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+        $student=Student::find($id);
+        $student->delete();
+        return "delete";
     }
 }
