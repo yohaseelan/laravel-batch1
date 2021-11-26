@@ -12,4 +12,10 @@ class Student extends Model
     protected $fillable = [
         'first_name', 'last_name','date_of_birth', 'address',
     ];
+
+    public function subjects(){
+
+        return  $this->belongsToMany(Subject::class);
+    }
+  
 }
