@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+    public function p()
+    {
+        return $this->belongsTo(Phone::class,'phone_id');
+    }
+    
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
 }
