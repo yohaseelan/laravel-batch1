@@ -14,17 +14,22 @@
       {{$student->id}}
         {{$student->first_name}}
         {{$student->last_name}}
+        {{$student->grade_id}}
+
         <br>
     @endforeach
     <table border="1">
     @foreach ($students as $student)
     <tr>
     <td>{{$student->id}}</td>
-     <td>{{$student->first_name}}</td>
+    <td>{{$student->first_name}}</td>
     <td> {{$student->last_name}}</td> 
+    <td> {{$student->grade_id}}</td> 
+    <td> {{$student->grade->grade_name}}</td>
+
     <td><a href="{{route('students.show',$student->id)}}">show</a></td> 
     <td><a href="{{route('students.edit',$student->id)}}">Edit</a></td> 
-
+    <td><a href="#">Add Subject</a></td> 
     <td>
 
       <form action="{{route('students.destroy',$student->id)}}" method="post">

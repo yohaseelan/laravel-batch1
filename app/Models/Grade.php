@@ -13,4 +13,8 @@ class Grade extends Model
 
         return $this->hasMany(Student::class);
     }
+    public function studentPhone()
+    {
+        return $this->hasOneThrough(Student::class, Phone::class,'grade_id','phone_id','id','id');
+    }
 }

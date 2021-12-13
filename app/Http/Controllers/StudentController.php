@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
@@ -17,8 +18,10 @@ class StudentController extends Controller
     public function index()
     {
         //
+      
         $students=Student::all();
-       
+       // $students=Student::get();
+       // $students=Student::with('grade')->get();
         return view('student.index',compact('students'));
     }
 
@@ -31,7 +34,9 @@ class StudentController extends Controller
     public function create()
     {
         //
-      return  view('student.create');
+     $grades=Grade::all();
+      return  view('student.create',compact('grades'));
+
     }
 
     /**
@@ -67,7 +72,7 @@ class StudentController extends Controller
     {
         //
         $student=Student::find($id);
-    
+     
       return  view('student.show',compact('student'));
 
     }
@@ -81,8 +86,8 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student=Student::find($id);
-    
-        return  view('student.edit',compact('student'));
+        $grades=Grade::all();
+        return  view('student.edit',compact('student','grades'));
     }
 
     /**
@@ -98,11 +103,12 @@ class StudentController extends Controller
        // $data=$request->all();
         $fna=$request->input('fname');
         $lna=$request->input('lname');
-
+        $grade_id=$request->input('gradeId');
         $student=Student::find($id);
         //$student=new Student();
         $student->first_name=$fna;
         $student->last_name=$lna;
+        $student->grade_id=$grade_id;
         $student->save();
 
 

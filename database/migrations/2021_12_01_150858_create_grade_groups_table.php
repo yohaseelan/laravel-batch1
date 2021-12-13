@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGradesTable extends Migration
+class CreateGradeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateGradesTable extends Migration
      */
     public function up()
     {
-        Schema::create('grades', function (Blueprint $table) {
+        Schema::create('grade_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('grade_name',20);
-            $table->integer('grade_group_id');
+            $table->string('grade_group_name',20);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateGradesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grades');
+        Schema::dropIfExists('grade_groups');
     }
 }
