@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Student;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Stmt\Return_;
 
 class StudentController extends Controller
@@ -18,7 +20,7 @@ class StudentController extends Controller
     public function index()
     {
         //
-      
+        Session()->put('username', 'seelan');
         $students=Student::all();
        // $students=Student::get();
        // $students=Student::with('grade')->get();
@@ -49,6 +51,14 @@ class StudentController extends Controller
     {
         //
       //  $data=$request->all();
+
+
+      $validated = $request->validate([
+        'fname' => 'required',
+        'lname' => 'required',
+    ]);
+
+
         $fna=$request->input('fname');
         $lna=$request->input('lname');
 
@@ -56,10 +66,15 @@ class StudentController extends Controller
 
         $student->first_name=$fna;
         $student->last_name=$lna;
+        $student->phone_id=1;
+        $student->grade_id=$request->input('gradeId');
         $student->save();
+       
+        Session()->flash('message', 'This is a message!'); 
+        Session()->flash('color', 'red'); 
 
+        return redirect()->route('students.index');
 
-        return $lna." ".$fna;
     }
 
     /**
@@ -72,7 +87,7 @@ class StudentController extends Controller
     {
         //
         $student=Student::find($id);
-     
+       Session()->forget('username');
       return  view('student.show',compact('student'));
 
     }

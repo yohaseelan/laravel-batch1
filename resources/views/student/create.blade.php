@@ -7,14 +7,22 @@
     <title>Create Student</title>
 </head>
 <body>
+
+  
+
     <form action="{{route('students.store')}}" method="post">
         @csrf
     <label for="fname">First Name</label>
-    <input type="text" name="fname" id="fname">
+    <input type="text" name="fname" id="fname" value="{{ old('fname') }}">
+    @error('fname')
+    <span style="color:red">{{ $message }}</span>
+@enderror
     <br>
     <label for="lname">Last Name</label>
-    <input type="text" name="lname" id="lname">
-
+    <input type="text" name="lname" id="lname"  value="{{ old('lname') }}">
+    @error('lname')
+    <span style="color:red">{{ $message }}</span>
+@enderror
 
     <br>
     <label for="gradeId">Grade Name</label>

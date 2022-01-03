@@ -9,7 +9,14 @@
 <body>
     <h1>Student list</h1>
     {{-- {{$students}} --}}
-    <br>
+
+
+    @if(Session::has('message'))
+      <p style="color:{{Session::get('color')}}">{{Session::get('message')}}</p>
+    @endif
+
+
+@if(false)
     @foreach ($students as $student)
       {{$student->id}}
         {{$student->first_name}}
@@ -18,6 +25,8 @@
 
         <br>
     @endforeach
+@endif
+
     <table border="1">
     @foreach ($students as $student)
     <tr>
@@ -26,10 +35,10 @@
     <td> {{$student->last_name}}</td> 
     <td> {{$student->grade_id}}</td> 
     <td> {{$student->grade->grade_name}}</td>
-
+ 
     <td><a href="{{route('students.show',$student->id)}}">show</a></td> 
     <td><a href="{{route('students.edit',$student->id)}}">Edit</a></td> 
-    <td><a href="#">Add Subject</a></td> 
+    <td><a href="{{route('students.subjects.create',$student->id)}}">Add Subject</a></td> 
     <td>
 
       <form action="{{route('students.destroy',$student->id)}}" method="post">

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class StudentSubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +23,13 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
+       $student=Student::find($request->student);
+        $subjects=Subject::all();
+        return view('student-subject/create',compact('student','subjects'));
     }
 
     /**
@@ -36,15 +41,21 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         //
+        $student=Student::find($request->student);
+        $subjects=$request->subject;
+
+        $student->subjects()->attach( $subjects);
+        
+      return $subjects;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show($id)
     {
         //
     }
@@ -52,10 +63,10 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +75,10 @@ class SubjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,15 +86,11 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
         //
-    }
-
-    public function addNewSubject($id){
-        
     }
 }
