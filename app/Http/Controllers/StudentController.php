@@ -50,8 +50,8 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
-      //  $data=$request->all();
-
+       
+       
 
       $validated = $request->validate([
         'fname' => 'required',
@@ -69,11 +69,11 @@ class StudentController extends Controller
         $student->phone_id=1;
         $student->grade_id=$request->input('gradeId');
         $student->save();
-       
-        Session()->flash('message', 'This is a message!'); 
-        Session()->flash('color', 'red'); 
+        return response()->json(['success'=>'Added new records.',"mydata"=>$request->input('fname')]);
+        //Session()->flash('message', 'This is a message!'); 
+      //  Session()->flash('color', 'red'); 
 
-        return redirect()->route('students.index');
+      //  return redirect()->route('students.index');
 
     }
 

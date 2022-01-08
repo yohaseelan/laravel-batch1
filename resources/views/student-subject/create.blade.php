@@ -21,8 +21,5 @@
 @endforeach
     <input type="submit">
 </form>
-
-
-
 </body>
 </html>

@@ -34,7 +34,7 @@
     <td>{{$student->first_name}}</td>
     <td> {{$student->last_name}}</td> 
     <td> {{$student->grade_id}}</td> 
-    <td> {{$student->grade->grade_name}}</td>
+ 
  
     <td><a href="{{route('students.show',$student->id)}}">show</a></td> 
     <td><a href="{{route('students.edit',$student->id)}}">Edit</a></td> 
